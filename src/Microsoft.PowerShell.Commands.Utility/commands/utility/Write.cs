@@ -37,7 +37,7 @@ namespace Microsoft.PowerShell.Commands
 
             if (mshCommandRuntime != null)
             {
-                DebugRecord record = new(Message);
+                DebugRecord record = new(string.IsNullOrEmpty(Message) ? null : Message);
 
                 InvocationInfo invocationInfo = GetVariableValue(SpecialVariables.MyInvocation) as InvocationInfo;
 
@@ -50,7 +50,7 @@ namespace Microsoft.PowerShell.Commands
             }
             else
             {
-                WriteDebug(Message);
+                WriteDebug(string.IsNullOrEmpty(Message) ? null : Message);
             }
         }
     }
@@ -69,7 +69,7 @@ namespace Microsoft.PowerShell.Commands
         [Parameter(Position = 0, Mandatory = true, ValueFromPipeline = true)]
         [AllowEmptyString]
         [Alias("Msg")]
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
         /// <summary>
         /// This method implements the ProcessRecord method for Write-verbose command.
@@ -85,7 +85,7 @@ namespace Microsoft.PowerShell.Commands
 
             if (mshCommandRuntime != null)
             {
-                VerboseRecord record = new(Message);
+                VerboseRecord record = new(string.IsNullOrEmpty(Message) ? null : Message);
 
                 InvocationInfo invocationInfo = GetVariableValue(SpecialVariables.MyInvocation) as InvocationInfo;
 
@@ -98,7 +98,7 @@ namespace Microsoft.PowerShell.Commands
             }
             else
             {
-                WriteVerbose(Message);
+                WriteVerbose(string.IsNullOrEmpty(Message) ? null : Message);
             }
         }
     }
@@ -117,7 +117,7 @@ namespace Microsoft.PowerShell.Commands
         [Parameter(Position = 0, Mandatory = true, ValueFromPipeline = true)]
         [AllowEmptyString]
         [Alias("Msg")]
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
         /// <summary>
         /// This method implements the ProcessRecord method for Write-Warning command.
@@ -133,7 +133,7 @@ namespace Microsoft.PowerShell.Commands
 
             if (mshCommandRuntime != null)
             {
-                WarningRecord record = new(Message);
+                WarningRecord record = new(string.IsNullOrEmpty(Message) ? null : Message);
 
                 InvocationInfo invocationInfo = GetVariableValue(SpecialVariables.MyInvocation) as InvocationInfo;
 
@@ -146,7 +146,7 @@ namespace Microsoft.PowerShell.Commands
             }
             else
             {
-                WriteWarning(Message);
+                WriteWarning(string.IsNullOrEmpty(Message) ? null : Message);
             }
         }
     }
@@ -226,7 +226,7 @@ namespace Microsoft.PowerShell.Commands
         [AllowNull]
         [AllowEmptyString]
         [Alias("Msg")]
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
         /// <summary>
         /// If Exception is specified, this is ErrorRecord.ErrorDetails.Message;
@@ -234,7 +234,7 @@ namespace Microsoft.PowerShell.Commands
         /// </summary>
         [Parameter(Position = 0, ParameterSetName = "ErrorRecord", Mandatory = true)]
         public ErrorRecord ErrorRecord { get; set; }
-        
+
         /// <summary>
         /// ErrorRecord.CategoryInfo.Category.
         /// </summary>
@@ -311,7 +311,7 @@ namespace Microsoft.PowerShell.Commands
             else
             {
                 Exception e = this.Exception;
-                string msg = Message;
+                string msg = string.IsNullOrEmpty(Message) ? null : Message;
                 e ??= new WriteErrorException(msg);
 
                 string errid = ErrorId;
