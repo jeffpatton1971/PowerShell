@@ -37,7 +37,7 @@ namespace Microsoft.PowerShell.Commands
 
             if (mshCommandRuntime != null)
             {
-                DebugRecord record = new(string.IsNullOrEmpty(Message) ? null : Message);
+                DebugRecord record = new(string.IsNullOrEmpty(Message) ? string.Empty : Message);
 
                 InvocationInfo invocationInfo = GetVariableValue(SpecialVariables.MyInvocation) as InvocationInfo;
 
@@ -50,7 +50,7 @@ namespace Microsoft.PowerShell.Commands
             }
             else
             {
-                WriteDebug(string.IsNullOrEmpty(Message) ? null : Message);
+                WriteDebug(string.IsNullOrEmpty(Message) ? string.Empty : Message);
             }
         }
     }
@@ -85,7 +85,7 @@ namespace Microsoft.PowerShell.Commands
 
             if (mshCommandRuntime != null)
             {
-                VerboseRecord record = new(string.IsNullOrEmpty(Message) ? null : Message);
+                VerboseRecord record = new(string.IsNullOrEmpty(Message) ? string.Empty : Message);
 
                 InvocationInfo invocationInfo = GetVariableValue(SpecialVariables.MyInvocation) as InvocationInfo;
 
@@ -98,7 +98,7 @@ namespace Microsoft.PowerShell.Commands
             }
             else
             {
-                WriteVerbose(string.IsNullOrEmpty(Message) ? null : Message);
+                WriteVerbose(string.IsNullOrEmpty(Message) ? string.Empty : Message);
             }
         }
     }
@@ -133,7 +133,7 @@ namespace Microsoft.PowerShell.Commands
 
             if (mshCommandRuntime != null)
             {
-                WarningRecord record = new(string.IsNullOrEmpty(Message) ? null : Message);
+                WarningRecord record = new(string.IsNullOrEmpty(Message) ? string.Empty : Message);
 
                 InvocationInfo invocationInfo = GetVariableValue(SpecialVariables.MyInvocation) as InvocationInfo;
 
@@ -146,7 +146,7 @@ namespace Microsoft.PowerShell.Commands
             }
             else
             {
-                WriteWarning(string.IsNullOrEmpty(Message) ? null : Message);
+                WriteWarning(string.IsNullOrEmpty(Message) ? string.Empty : Message);
             }
         }
     }
@@ -311,7 +311,7 @@ namespace Microsoft.PowerShell.Commands
             else
             {
                 Exception e = this.Exception;
-                string msg = string.IsNullOrEmpty(Message) ? null : Message;
+                string msg = string.IsNullOrEmpty(Message) ? string.Empty : Message;
                 e ??= new WriteErrorException(msg);
 
                 string errid = ErrorId;
